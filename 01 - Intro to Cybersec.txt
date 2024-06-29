@@ -1,0 +1,157 @@
+Lesson 1: Theory
+define "assessing threats and mitigating risk within means"
+    "assessing theats"
+        Threat actors "who is threatening my shit"
+            Script kiddies - hack for bragging rights, low sophistication
+                "a `hacker` who uses premade tools and exploits without understanding them"
+            Hacktivists - Political motive
+                higher sophistication
+                more motivated
+                far more targeted
+            Organized crime - profit motive
+                Even higher sophistication
+                Scams, spam, phishing, malware
+                "scanning the whole fuckin internet for known exploits"
+            APTs - Advanced Persistant Threats - nation-state actors
+                Highest level of sophistication
+                Highly funded, large groups, well Organized
+                Espionage motives - occasional profit motive
+                Tend to operate in social engineering or especially 0day exploits.
+            Super important: find out who your most likely threat actors are.
+        Assets
+            "what shit do I have that needs to be protected" / "attack surface"
+            computers, phones, apps, servers, etc
+            Human beings
+            Super important: inventory your assets
+    "risk"
+        Financial
+        Reputational / social
+        Political
+        Important: find out what the risk of being pwned is
+    "mitigating"
+        Important: what assets should we focus on protecting?
+        Important: how should we go about protecting them?
+    "means"
+        Money
+        Time 
+        user compliance
+GRC
+    Governance
+        Policies
+        Adminsistration
+        "structure"
+    Risk 
+        above
+    Compliance
+        "what laws do we have to follow?"
+CIA Triad
+    Confidentiality
+        keep secrets secret
+        Make sure the people who need access, have access, securely
+    Integrity
+        Make sure your data is intact, unmodified, uncorrupted, correct
+    Availabiltiy
+        "make sure what should be available remains available"
+
+Blue Team
+    "on defence"
+Red Team "informs blue team"
+    "white hack hackers"
+    Try to break blue team's shit
+    they exist to inform blue team.
+Purple Team "red team and blue team work together"
+    best model (imo)
+
+Inventory Threats
+    Make a list of shit that could go wrong, as complete as possible
+    organize by impact and likelyhood
+
+Threat heatmap
+    a simple heatmap
+    likelyhood of an attack (per year) (1-100%)
+    VS
+    impact of an attack (1-100)
+    One corner is "high likelyhood, high impact"
+        focus resources at quadrent
+    Opposite corner is "low likelyhood, low impact"
+        monitor, keep an eye on it
+
+Continuity of business / disaster response/recovery
+    "to keep shit up and running when shit goes wrong"
+    Important: make a frikkn plan
+        Include: timeframe for fixes and cost of fixes
+    Backups
+        FUCKING DO THEM TWO LOCAL ONE REMOTE MINIMUM
+        Types:
+            Incremental
+                only back up data that has changed
+                uses less disk space
+                can be used for recovering from file deletes, mistakes, etc where you want to roll back the data
+                often the slowest to fully recover from 
+            Full
+                just a full, seperate copy of all your data
+                os image, whatever
+                the largest in terms of filesize
+                also the fastest to recover from
+            You need both!
+        Schedule
+            "how often should we do a full backup?"
+            "how long should we store old data?"
+            "how often do we update the redundant storage?"
+
+    Redundancy
+        "having more than one thing in case it breaks"
+        9s problem
+            99% uptime on a decent thing is kinda a given
+            99.9% uptime (one 9 of uptime) 
+                backup servers
+                faster incident response
+                more redundancy and procedure
+            99.99% uptime (two 9s)
+                geographically seperated backup servers
+                content delivery network
+                backup equipment to work on it (workstations, etc)
+            99.999+% uptime (three 9s)
+                fuckikn insane google-tier shit
+        Important: define what level of redundancy you need and can afford
+
+        Cold site, warm site, hot site
+            "spaces, physical or digital, that you can fall back to"
+                Backup physical office space
+                Backup datacenter
+                A spare cloud hosting account with your images loaded
+        Cold site
+            a backup space that will take some real time to get running
+        Hot site
+            a site that is 100% functional and ready to switch to at any time
+        Warm site
+            somewhere in-between
+        Power (electrical generator, power bank)
+        Manpower
+        Hardware (backup workstations, etc)
+        Backups
+        Important: "what is so important that we will spend money and time to mitigate downtime?"
+Security Team
+    CISO - Cheif Information Security Officer
+        Generally report to the Chief Information Officer (CIO) or the Cheif Technical Officer (CTO)
+            Imo: CISO should to the board/president
+    Policymakers - make policies and rules and shit
+    
+    Administration level - managing shit day to day
+
+    SOC - Security Operations Center
+        SOCs are fuckin cool
+        SOC base-level employee is a "threat analyst"
+        Monitor the cyber security status of the comany
+            tools like Splunk aggregate logs and alerts and put them into big tables, graphs, charts, maps, etc
+        When soemthing happens, they escelate to incident resoponse (IR)
+            which could be elevated to the disaster recovery team (OneDrive)
+
+Monitoring
+    aggregate logs, alerts, security involved actions, all in one place
+        Splunk or free option ELK Stack
+    Baselining
+        "finding out what `normal` looks like, and build alerts for deviations"
+        AI works super good for this as a STARTING POINT
+
+Cyber security domains: https://taosecurity.blogspot.com/2017/03/cybersecurity-domains-mind-map.html
